@@ -52,10 +52,6 @@ export class CustomerBookingsService {
   constructor(private http: HttpClient) { }
 
   getCustomerBookings(): Observable<Booking[]> {
-    const token = localStorage.getItem('customerToken');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.http.get<Booking[]>(this.apiUrl, { headers });
+     return this.http.get<Booking[]>(this.apiUrl);
   }
 }
