@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiBaseUrl}/auth/customer-token`//'http://localhost:7131/api/auth/customer-token'; // Azure Function endpoint
+  private apiUrl = `${environment.apiBaseUrl}/auth/customer-token`; 
 
   constructor(private http: HttpClient, private router: Router) { }
 

@@ -19,9 +19,7 @@ export interface Customer {
   providedIn: 'root'
 })
 export class CustomerService {
-  private readonly baseUrl = `${environment.apiBaseUrl}`//`${environment.apiBaseUrl}`//'http://localhost:7131/api';
-  private readonly jsonHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  private readonly baseUrl = `${environment.apiBaseUrl}`;  
   constructor(private http: HttpClient) {}
 
 

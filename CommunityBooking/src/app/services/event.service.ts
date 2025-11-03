@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
-  private readonly baseUrl = `${environment.apiBaseUrl}`//'http://localhost:7131/api';
+  private readonly baseUrl = `${environment.apiBaseUrl}`;
 
   constructor(private http: HttpClient) { }
 
