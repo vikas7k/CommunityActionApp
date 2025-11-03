@@ -1,0 +1,26 @@
+<div class="customer-container">
+  <h2>Add New Customer</h2>
+
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="Email">Email</label>
+      <input id="Email" type="Email" formControlName="Email" />
+      <div class="error" *ngIf="customerForm.get('Email')?.touched && customerForm.get('Email')?.invalid">
+        Valid email is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="Name">Name</label>
+      <input id="Name" type="text" formControlName="Name" />
+      <div class="error" *ngIf="customerForm.get('Name')?.touched && customerForm.get('Name')?.invalid">
+        Name is required
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="submitting">Add Customer</button>
+  </form>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>

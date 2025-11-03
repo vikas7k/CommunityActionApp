@@ -1,0 +1,27 @@
+<!--<div class="event-detail" *ngIf="!loading && event; else loadingOrError">-->
+<div class="event-detail">
+  <img [src]="event?.MoreInfoUrl" alt="{{ event?.Title }}" class="event-image">
+
+  <h1 class="event-title">{{ event?.Title }}</h1>
+  <p class="event-date">
+    <strong>Date:</strong> {{ event?.Start | date:'medium' }}
+  </p>
+  <p class="event-location"><strong>Category:</strong> {{ event?.Category }}</p>
+  <div class="event-description" [innerHTML]="event?.Description"></div>
+  <p>
+
+    <button *ngIf="event?.BookingEnabled && customerLoggedIn"
+            [routerLink]="['/events', event?.Id, 'book']"
+            class="book-btn">
+      Book Now
+    </button>
+
+    <button *ngIf="event?.BookingEnabled && !customerLoggedIn"
+            routerLink="/login"
+            class="book-btn disabled">
+      Login to Book
+    </button>
+
+  </p>
+</div>
+

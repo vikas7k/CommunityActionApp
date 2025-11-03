@@ -1,0 +1,26 @@
+<div class="customer-bookings">
+  <h2>My Bookings</h2>
+
+  <div *ngIf="loading">Loading bookings...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && bookings.length === 0">
+    No bookings found.
+  </div>
+
+  <div *ngIf="!loading && bookings.length > 0">
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <p><strong>Name:</strong> {{ booking.Name }}</p>
+      <p><strong>Email:</strong> {{ booking.Email }}</p>
+      <p><strong>Title:</strong> {{ booking.Title }}</p>
+      <p><strong>Start Date:</strong> {{ booking.Start | date:'medium' }}</p>
+      <p><strong>Option:</strong> {{ booking.Option }}</p>
+      <p><strong>Category:</strong> {{ booking.Category }}</p>
+      <p><strong>Description:</strong> {{ booking.Description }}</p>
+      <p><strong>Notes:</strong> {{ booking.Notes }}</p>
+      <img *ngIf="booking.ImageUrl" [src]="booking.ImageUrl" alt="{{ booking.Title }}" class="event-image">
+    </div>
+  </div>
+</div>
+
+

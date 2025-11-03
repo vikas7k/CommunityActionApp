@@ -1,0 +1,27 @@
+.container {
+  max-width: 900px;
+}
+
+.card {
+  border-radius: 1rem;
+  transition: transform 0.2s ease;
+}
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+
+.event-box {
+  border: 1px solid #ccc; /* Border around the box */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Inner spacing */
+  background-color: #fff; /* White background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Light shadow */
+  transition: transform 0.2s, box-shadow 0.2s; /* Hover effect */
+}
+
+  .event-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }

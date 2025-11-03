@@ -1,0 +1,59 @@
+<!--<div class="container mt-4">
+  <h2>Upcoming Events</h2>
+
+  <div *ngIf="isLoading" class="text-muted">Loading events...</div>
+  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage">
+    <div *ngFor="let ev of events" class="card my-3 shadow-sm">
+      <div class="card-body">
+        <p class="card-text text-muted">
+          <strong>Title:</strong> {{ ev.Title }}<br />
+          <strong>Category:</strong> {{ ev.Category }}<br />
+          <strong>Date:</strong> {{ ev.Start | date:'medium' }}
+          <br />
+          <a [routerLink]="['/events', ev.Id]">View Details</a>          
+        </p>
+        <p>
+          {{ ev.Description }}         
+        </p>
+        <a *ngIf="ev.MoreInfoUrl" [href]="ev.MoreInfoUrl" target="_blank" class="btn btn-outline-primary">
+          Read More
+        </a>
+      </div>
+    </div>
+
+    <div *ngIf="events.length === 0" class="text-muted mt-3">
+      No events found.
+    </div>
+  </div>
+</div>-->
+<div class="container mt-4">
+  <h2>Upcoming Events</h2>
+
+  <div *ngIf="isLoading" class="text-muted">Loading events...</div>
+  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage">
+    <div *ngFor="let ev of events" class="event-box my-3">
+      <h5>{{ ev.Title }}</h5>
+      <p>
+        <strong>Category:</strong> {{ ev.Category }}<br />
+        <strong>Date:</strong> {{ ev.Start | date:'medium' }}
+      </p>
+      <p>{{ ev.Description }}</p>
+      <a *ngIf="ev.MoreInfoUrl" [href]="ev.MoreInfoUrl" target="_blank" class="btn btn-outline-primary">
+        Read More
+      </a>
+      <p>
+        <a [routerLink]="['/events', ev.Id]" class="btn btn-primary ms-2">
+          View Details
+        </a>
+      </p>
+    </div>
+
+    <div *ngIf="events.length === 0" class="text-muted mt-3">
+      No events found.
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="booking-container">
+  <h2>Book Your Spot</h2>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input id="name" type="text" formControlName="name" />
+      <div class="error" *ngIf="bookingForm.get('name')?.touched && bookingForm.get('name')?.invalid">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+      <div class="error" *ngIf="bookingForm.get('email')?.touched && bookingForm.get('email')?.invalid">
+        Valid email is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="entryType">Entry Type</label>
+      <select id="entryType" formControlName="entryType">
+        <option value="">-- Select an option --</option>
+        <option value="Run">Fun Run (Run)</option>
+        <option value="Walk">Fun Run (Walk)</option>
+        <option value="Cakes">Bake-off (Cakes)</option>
+        <option value="Pastries">Bake-off (Pastries)</option>
+        <option value="desserts">Bake-off (Desserts)</option>
+      </select>
+      <div class="error" *ngIf="bookingForm.get('entryType')?.touched && bookingForm.get('entryType')?.invalid">
+        Please select an entry type
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="notes">Notes (optional)</label>
+      <textarea id="notes" formControlName="notes" rows="4" placeholder="Add any special requirements or comments..."></textarea>
+    </div>
+    <div class="form-group terms">
+      <input id="agreeToTerms" type="checkbox" formControlName="agreeToTerms" />
+      <label for="agreeToTerms">I agree to the event’s Terms & Conditions</label>
+      <div class="error" *ngIf="bookingForm.get('agreeToTerms')?.touched && bookingForm.get('agreeToTerms')?.invalid">
+        You must agree to continue
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="submitting">Book Now</button>
+  </form>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>

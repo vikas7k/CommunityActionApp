@@ -1,0 +1,26 @@
+.customer-bookings {
+  padding: 20px;
+}
+
+.booking-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+  .booking-card h3 {
+    margin-top: 0;
+  }
+
+.event-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
