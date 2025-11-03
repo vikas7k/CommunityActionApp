@@ -2,28 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-//export interface Event {
-//  id: string;
-//  title: string;
-//  imageUrl?: string;
-//  start: string;
-//  category: string;
-//  description?: string;
-//  moreInfoUrl?: string;
-//  bookingEnabled: boolean;
-//  capacity: number;
-//  funRunDistanceKm?: number;
-//}
-
-//export interface Booking {
-//  id: string;
-//  name: string;
-//  email: string;
-//  option?: string;
-//  notes?: string;
-//  createdAt: string;
-//  event: Event;
-//}
 
 export interface Booking {
   Id: string;
@@ -32,8 +10,8 @@ export interface Booking {
   Option?: string;
   Notes?: string;
   CreatedAt: string;
-  Title: string;        // instead of nested event
-  Start: string;     // rename fields to match API
+  Title: string;        
+  Start: string;    
   Category: string;
   ImageUrl: string;
   Description?: string;
@@ -47,7 +25,7 @@ export interface Booking {
   providedIn: 'root'
 })
 export class CustomerBookingsService {
-  private apiUrl = `${environment.apiBaseUrl}/bookings/customer`// 'http://localhost:7131/api/bookings/customer'; // Azure Function endpoint
+  private apiUrl = `${environment.apiBaseUrl}/bookings/customer`; 
 
   constructor(private http: HttpClient) { }
 

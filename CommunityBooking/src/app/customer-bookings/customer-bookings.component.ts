@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerBookingsService, Booking } from '../services/customer-bookings.service';
-
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-customer-bookings',
   standalone: false,
@@ -11,10 +11,16 @@ export class CustomerBookingsComponent implements OnInit {
   bookings: Booking[] = [];
   loading = true;
   error?: string;
-  constructor(private bookingsService: CustomerBookingsService) { }
+  constructor(private bookingsService: CustomerBookingsService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loadBookings();
+    if (this.authService.isLoggedIn()) {
+      this.loadBookings();
+    }
+    else {
+      this.error = 'Please log in to view your booking.';
+      this.loading = false;
+    };
   }
 
   loadBookings(): void {
