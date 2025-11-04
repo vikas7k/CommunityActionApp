@@ -82,3 +82,19 @@ button {
     margin-top: 0.25rem;
   }
 
+
+.terms-panel {
+  text-align: left;
+  padding: 1rem;
+}
+
+  .terms-panel h2 {
+    margin-bottom: 1rem;
+  }
+
+  .terms-panel ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+

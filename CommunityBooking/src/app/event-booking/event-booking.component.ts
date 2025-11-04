@@ -20,6 +20,7 @@ export class EventBookingComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
   eventTypes: EventType[] = [];
+  termsAccepted = false; 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,

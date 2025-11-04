@@ -1,42 +1,62 @@
 <div class="booking-container">
-  <h2>Book Your Spot</h2>
+  <div *ngIf="!termsAccepted" class="terms-panel">
+    <h2>Terms & Conditions</h2>
+    <p>
+      Please read and agree to the event’s Terms & Conditions before proceeding with your booking.
+    </p>
 
-  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Full Name</label>
-      <input formControlName="name" class="form-control" readonly />
-    </div>
+    <ul>
+      <li>You agree to participate safely and responsibly in the event.</li>
+      <li>The organizer is not responsible for any personal injury or loss.</li>
+      <li>Your personal data will be used only for event registration purposes.</li>
+    </ul>
 
-    <div class="form-group">
-      <label>Email</label>
-      <input formControlName="email" class="form-control" readonly />
-    </div>
-
-    <div class="form-group">
-      <label for="entryType">Entry Type</label>
-      <select id="entryType" formControlName="entryType">
-        <option value="">-- Select an option --</option>
-        <option *ngFor="let type of eventTypes" [value]="type.Category">
-          {{ type.Name }} ({{ type.Category }})
-        </option>       
-      </select>
-      <div class="error" *ngIf="bookingForm.get('entryType')?.touched && bookingForm.get('entryType')?.invalid">
-        Please select an entry type
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="notes">Notes (optional)</label>
-      <textarea id="notes" formControlName="notes" rows="4" placeholder="Add any special requirements or comments..."></textarea>
-    </div>
     <div class="form-group terms">
-      <input id="agreeToTerms" type="checkbox" formControlName="agreeToTerms" />
-      <label for="agreeToTerms">I agree to the event’s Terms & Conditions</label>
+      <input type="checkbox" id="acceptTerms" [(ngModel)]="termsAccepted" />
+      <label for="acceptTerms">I agree to the event’s Terms & Conditions</label>
     </div>
-    <div class="error" *ngIf="bookingForm.get('agreeToTerms')?.touched && bookingForm.get('agreeToTerms')?.invalid">
-      You must agree to continue
-    </div>
-    <button type="submit" [disabled]="submitting">Book Now</button>
-  </form>
-  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
-  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-</div>
+  </div>
+
+  <div *ngIf="termsAccepted">
+    <h2>Book Your Spot</h2>
+
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input formControlName="name" class="form-control" readonly />
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input formControlName="email" class="form-control" readonly />
+      </div>
+
+      <div class="form-group">
+        <label for="entryType">Entry Type</label>
+        <select id="entryType" formControlName="entryType">
+          <option value="">-- Select an option --</option>
+          <option *ngFor="let type of eventTypes" [value]="type.Category">
+            {{ type.Name }} ({{ type.Category }})
+          </option>
+        </select>
+        <div class="error" *ngIf="bookingForm.get('entryType')?.touched && bookingForm.get('entryType')?.invalid">
+          Please select an entry type
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="notes">Notes (optional)</label>
+        <textarea id="notes" formControlName="notes" rows="4" placeholder="Add any special requirements or comments..."></textarea>
+      </div>
+      <div class="form-group terms">
+        <input id="agreeToTerms" type="checkbox" formControlName="agreeToTerms" />
+        <label for="agreeToTerms">I agree to the event’s Terms & Conditions</label>
+      </div>
+      <div class="error" *ngIf="bookingForm.get('agreeToTerms')?.touched && bookingForm.get('agreeToTerms')?.invalid">
+        You must agree to continue
+      </div>
+      <button type="submit" [disabled]="submitting">Book Now</button>
+    </form>
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+  </div>
