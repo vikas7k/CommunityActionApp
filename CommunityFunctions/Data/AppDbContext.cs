@@ -11,8 +11,8 @@ namespace CommunityFunctions.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Organiser> Organisers { get; set; }
         public DbSet<EventOrganiser> EventOrganisers { get; set; }
-
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<EventType> EventTypes { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder model)
         {
@@ -42,6 +42,19 @@ namespace CommunityFunctions.Data
                 .Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            model.Entity<EventType>()
+              .HasKey(et => et.Id);
+
+            model.Entity<EventType>()
+                .Property(et => et.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            model.Entity<EventType>()
+                .Property(et => et.Category)
+                .IsRequired()
+                .HasMaxLength(20);
 
             base.OnModelCreating(model);
         }

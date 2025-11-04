@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { DecodedToken } from '../models/decoded-token.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -34,6 +36,21 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('customerToken');
+  }
+
+  getCurrentCustomer(): { name: string; email: string; role: string } | null {
+    const token = localStorage.getItem('customerToken');
+    if (!token) return null;
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      return {
+        name: decoded.name,
+        email: decoded.sub,
+        role: decoded.role
+      };
+    } catch {
+      return null;  
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

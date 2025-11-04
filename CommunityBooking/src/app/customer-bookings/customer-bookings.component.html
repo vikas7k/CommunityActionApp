@@ -9,6 +9,13 @@
   </div>
 
   <div *ngIf="!loading && bookings.length > 0">
+    <div>
+      <p>
+        <button (click)="downloadBookingsCSV()" class="btn btn-outline-primary mt-3">
+          Download My Bookings (CSV)
+        </button>
+      </p>
+    </div>
     <div *ngFor="let booking of bookings" class="booking-card">
       <p><strong>Name:</strong> {{ booking.Name }}</p>
       <p><strong>Email:</strong> {{ booking.Email }}</p>
@@ -20,7 +27,7 @@
       <p><strong>Notes:</strong> {{ booking.Notes }}</p>
       <img *ngIf="booking.ImageUrl" [src]="booking.ImageUrl" alt="{{ booking.Title }}" class="event-image">
     </div>
-  </div>
+  </div> 
 </div>
 
 

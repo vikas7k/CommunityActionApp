@@ -19,22 +19,18 @@ namespace CommunityFunctions
             var q = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
             var search = q["search"];
             var category = q["category"];
-            var fromDate = q["fromDate"];
-            var toDate = q["toDate"];
-
+         
             var events = _db.Events.AsQueryable();
-            var today = DateTimeOffset.Now; 
-            events = events.Where(e => e.Start >= today);
+            var now = DateTimeOffset.Now;            
 
             if (!string.IsNullOrEmpty(search))
                 events = events.Where(e => e.Title.Contains(search));
 
-            if (DateTimeOffset.TryParse(fromDate, out var fd))
-                events = events.Where(e => e.Start >= fd);
-            if (DateTimeOffset.TryParse(toDate, out var td))
-                events = events.Where(e => e.Start <= td);
-
+            if (!string.IsNullOrEmpty(category))
+                events = events.Where(e => e.Category.Contains(category));
+         
             var list = await events
+                .Where(e => e.Start > now)
                 .OrderBy(e => e.Start)
                 .Select(e => new EventListItemDto
                 {

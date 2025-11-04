@@ -52,11 +52,12 @@ public class CustomerBookingsFunction
             }
 
             // Query bookings for this customer, including event details
-
+            var now = DateTimeOffset.Now;
             var bookings = await (from b in _dbContext.Bookings
                                            join e in _dbContext.Events
                                            on b.EventId equals e.Id
-                                           where b.Email == emailClaim
+                                           where b.Email == emailClaim && e.Start > now
+                                           orderby e.Start
                                            select new
                                            {
                                                b.Id,
@@ -74,35 +75,7 @@ public class CustomerBookingsFunction
                                                e.BookingEnabled,
                                                e.Capacity,
                                                e.FunRunDistanceKm
-                                           }).ToListAsync();
-
-            //return new OkObjectResult(bookingsWithEvent);
-            //var bookings = await _dbContext.Bookings
-            //    .Where(b => b.Email == emailClaim)
-            //    .Include(b => b.Event)
-            //    .Select(b => new
-            //    {
-            //        b.Id,
-            //        b.Name,
-            //        b.Email,
-            //        b.Option,
-            //        b.Notes,
-            //        b.CreatedAt,
-            //        Event = new
-            //        {
-            //            b.Event.Id,
-            //            b.Event.Title,
-            //            b.Event.ImageUrl,
-            //            b.Event.Start,
-            //            b.Event.Category,
-            //            b.Event.Description,
-            //            b.Event.MoreInfoUrl,
-            //            b.Event.BookingEnabled,
-            //            b.Event.Capacity,
-            //            b.Event.FunRunDistanceKm
-            //        }
-            //    })
-            //    .ToListAsync();
+                                           }).ToListAsync();          
 
             response.StatusCode = System.Net.HttpStatusCode.OK;
             await response.WriteAsJsonAsync(bookings);

@@ -53,8 +53,32 @@ button {
   font-weight: 600;
 }
 
+
+
 .terms {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 0.5rem;
+  position: relative;
 }
+
+  .terms input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+
+  .terms label {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .terms .error {
+    display: block;
+    color: #d00;
+    font-size: 0.9rem;
+    margin-left: 22px;
+    margin-top: 0.25rem;
+  }
+

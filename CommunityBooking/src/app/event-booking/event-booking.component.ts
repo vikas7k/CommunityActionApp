@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../services/event.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { EventType } from '../models/eventType.model';
 
 @Component({
   selector: 'app-event-booking',
@@ -17,25 +19,37 @@ export class EventBookingComponent implements OnInit {
   submitting = false;
   successMessage = '';
   errorMessage = '';
-
+  eventTypes: EventType[] = [];
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id') || '';
+    const customer = this.authService.getCurrentCustomer();
 
-    this.bookingForm = this.fb.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      entryType: ['', [Validators.required]], // e.g., "run", "walk", "cakes"
+    this.bookingForm = this.fb.group({     
+      name: [{ value: customer?.name || '', disabled: true }],
+      email: [{ value: customer?.email || '', disabled: true }],
+      entryType: ['', [Validators.required]],
       notes: [''],
       agreeToTerms: [false, [Validators.requiredTrue]]
     });
+
+    this.loadEventTypes();
   }
+
+  loadEventTypes(): void {
+    this.eventService.getEventTypes().subscribe({
+      next: (data) => (this.eventTypes = data),
+      error: (err) => (this.errorMessage = 'Failed to load event types.')
+    });
+  }
+
 
   onSubmit(): void {
     if (this.bookingForm.invalid) {
@@ -47,7 +61,7 @@ export class EventBookingComponent implements OnInit {
     this.successMessage = '';
     this.errorMessage = '';
 
-    this.eventService.bookEvent(this.eventId, this.bookingForm.value).subscribe({
+    this.eventService.bookEvent(this.eventId, this.bookingForm.getRawValue()).subscribe({
       next: () => {
         this.submitting = false;
         this.successMessage = 'Booking successful! A confirmation email has been sent.';

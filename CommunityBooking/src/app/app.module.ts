@@ -12,6 +12,7 @@ import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerLoginComponent } from './customer-login/customer-login.component';
 import { CustomerBookingsComponent } from './customer-bookings/customer-bookings.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CustomerLogoutComponent } from './customer-logout/customer-logout.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     EventBookingComponent,
     CustomerAddComponent,
     CustomerLoginComponent,
-    CustomerBookingsComponent
+    CustomerBookingsComponent,
+    CustomerLogoutComponent
   ],
   imports: [
     BrowserModule,

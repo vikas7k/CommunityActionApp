@@ -36,4 +36,42 @@ export class CustomerBookingsComponent implements OnInit {
       }
     });
   }
+
+  downloadBookingsCSV() {
+    this.bookingsService.getCustomerBookings().subscribe({
+      next: (bookings) => {
+        if (!bookings || bookings.length === 0) {
+          alert('No bookings available to download.');
+          return;
+        }
+
+        // Convert JSON to CSV string
+        const csvData = this.convertToCSV(bookings);
+        const blob = new Blob([csvData], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+
+        // Create a temporary link to trigger download
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'my_bookings.csv');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      },
+      error: (err) => {
+        console.error('Failed to download bookings', err);
+        alert('Failed to download bookings.');
+      }
+    });
+  }
+
+  private convertToCSV(objArray: any[]): string {
+    const header = Object.keys(objArray[0]).join(',');
+    const rows = objArray.map(row =>
+      Object.values(row)
+        .map(val => `"${val?.toString().replace(/"/g, '""')}"`) // Escape quotes
+        .join(',')
+    );
+    return [header, ...rows].join('\r\n');
+  }
 }

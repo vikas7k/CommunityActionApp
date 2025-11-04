@@ -6,8 +6,8 @@ import { EventBookingComponent } from './event-booking/event-booking.component';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerLoginComponent } from './customer-login/customer-login.component';
 import { CustomerBookingsComponent } from './customer-bookings/customer-bookings.component';
+import { CustomerLogoutComponent } from './customer-logout/customer-logout.component';
 
-//const routes: Routes = [];
 
 const routes: Routes = [
   { path: '', component: EventListComponent, pathMatch: 'full' },
@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'events/:id/book', component: EventBookingComponent },
   { path: 'add-customer', component: CustomerAddComponent },
   { path: 'login', component: CustomerLoginComponent },
+  { path: 'logout', component: CustomerLogoutComponent },
   { path: 'my-bookings', component: CustomerBookingsComponent },
   { path: '**', redirectTo: '' }
   // other routes...

@@ -76,3 +76,10 @@ public class Customer
     public string Email { get; set; }  // Primary key
     public string Name { get; set; }
 }
+
+public class EventType
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; } 
+}

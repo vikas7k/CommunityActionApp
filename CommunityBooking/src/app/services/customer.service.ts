@@ -47,10 +47,7 @@ export class CustomerService {
         message = error;
       }
     }
-    // Keep side-effect minimal: log to console for developer diagnostics.
-    // Production apps may forward this to a remote logging infrastructure.
-    // Preserve original error object where possible.
-    // eslint-disable-next-line no-console
+   
     console.error('CustomerService error:', error);
     return throwError(() => new Error(message));
   };

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { EventType } from '../models/eventType.model';
 import { Event } from '../models/event.model';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -12,9 +13,12 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   // Fetch all events
-  getAllEvents(): Observable<Event[]> {
+  getAllEvents(search?: string, category?: string): Observable<Event[]> {
+    let params = new HttpParams();
+    if (search) params = params.set('search', search);
+    if (category) params = params.set('category', category);
     let url = `${this.baseUrl}/events`;
-    return this.http.get<Event[]>(url);
+    return this.http.get<Event[]>(url, { params });
   }
 
   //Get event by Id
@@ -29,6 +33,11 @@ export class EventService {
       catchError(this.handleError)
     );
   }
+
+  getEventTypes(): Observable<EventType[]> {
+    return this.http.get<EventType[]>(`${this.baseUrl}/event-types`);
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.error('EventService error:', error);
     let msg = 'An unknown error occurred.';

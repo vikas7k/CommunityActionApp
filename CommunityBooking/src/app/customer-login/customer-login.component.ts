@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 
@@ -15,7 +16,7 @@ export class CustomerLoginComponent {
   errorMessage?: string;
   successMessage?: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private location: Location) {
     this.loginForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
@@ -34,6 +35,8 @@ export class CustomerLoginComponent {
       next: (token) => {
         this.loading = false;
         this.successMessage = 'Login successful!';
+        this.location.back();
+        setTimeout(() => window.location.reload(), 100); 
       },
       error: (err) => {
         this.loading = false;
